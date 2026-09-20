@@ -12,3 +12,5 @@
 3. npm i -D nodemon
 
 4. npx tsc --init
+
+5. npm i express-validator
