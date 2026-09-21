@@ -3,11 +3,6 @@ import { body, param, validationResult } from "express-validator";
 
 const router = Router()
 
-let authors = [
-    {id: 1, authorName: "Byron", title: "The adventures of the fixer"},
-    {id: 2, authName: "Leano", title: 'The upbrining of the boy' }
-]
-
 router.get("/", (req: Request, res: Response) => {
     res.status(200).json(authors)
 })

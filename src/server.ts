@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 5000
 // two build in middleware essential for passing incoming json data
 app.use(express.json()) 
 app.use(bodyParser.json()) 
-
 app.use(loggerMiddleware);
 
 app.listen(PORT, () => {
