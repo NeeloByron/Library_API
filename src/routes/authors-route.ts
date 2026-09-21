@@ -86,7 +86,7 @@ router.put("/:id", [idValidation, ...authorValidation], (req: Request, res: Resp
   },
 );
 
-// DELET /authors/:id
+// DELETE /authors/:id
 router.delete("/:id", idValidation, (req: Request, res: Response) => {
     if (sendValidationErrors(req, res))
         return;
