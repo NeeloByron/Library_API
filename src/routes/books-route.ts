@@ -64,7 +64,43 @@ router.post("/", createBookValidation, (req: Request, res: Response) => {
         authorId,
         year: year ?? new Date().getFullYear(),
     };
-    book.push(newBook);
+    books.push(newBook);
     res.status(201).json({ success: true, data: newBook });
 });
+
+// PUT /books/:id full update
+router.put("/:id", idValidation, updateBookValidation, (req: Request, res: Response) => {
+    if (sendValidationErrors(req, res))
+        return;
+
+    const id = Number(req.params.id);
+    const index = books.findIndex((b) => b.id === id);
+    if (index === -1) {
+        res.status(404).json({ success: false, message: "Book not found" });
+        return;
+    }
+
+    const { title, authorId, year } = req.body;
+    books[index] = { id, title, authorId, year: year ?? books[index].year };
+    res.status(200).json({ success: true, data: books[index] });
+});
+
+// DELETE /books/:id
+router.delete("/:id", idValidation, (req: Request, res: Response) => {
+    if (sendValidationErrors(req, res))
+        return;
+
+    const id = Number(req.params.id);
+    const index = books.findIndex((b) => b.id === id);
+    if (index === -1) {
+        res.status(404).json({ success: false, message: "Book not found" });
+        return;
+    }
+
+    const [removed] = books.splice(index, 1);
+    res.status(200).json({ success: true, data: removed });
+});
+
+export default router;
+
 
