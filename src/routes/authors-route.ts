@@ -28,10 +28,23 @@ const sendValidationErrors = (req: Request, res: Response): boolean => {
 
 // GET /authors
 router.get("/", (_req: Request, res: Response) => {
-    res.status(200).json({
-        success: true,
-        data: authors,
-    });
+    res.status(200).json({ success: true,data: authors, });
 });
 
 // GET /authors/:id
+router.get("/:id", idValidation, (req: Request, res: Response) => {
+    // 404 response if the ID is invalid
+    if (sendValidationErrors(req, res)) {
+        return;
+    }
+
+    const id = Number(req.params.id);
+     // find the author with the same ID
+    const author = authors.find((author) => author.id === id);
+    if (!author) {
+        res.status(404).json({ success: false, message: "Author not found"});
+        return;
+    }
+
+    res.status(200).json({ success: true, data: author });
+});
