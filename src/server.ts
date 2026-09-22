@@ -13,8 +13,10 @@ app.use(express.json())
 app.use(bodyParser.json()) 
 app.use(loggerMiddleware);
 
+// authors route
 app.use("/authors", authorRouter)
 
+// error handling
 app.use(errorHandler);
 
 app.listen(PORT, () => {

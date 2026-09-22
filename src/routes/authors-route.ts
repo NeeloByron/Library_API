@@ -17,10 +17,7 @@ const sendValidationErrors = (req: Request, res: Response): boolean => {
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-        res.status(400).json({
-            success: false,
-            errors: errors.array(),
-        });
+        res.status(400).json({bsuccess: false, errors: errors.array(), });
         return true;
     }
     return false;
@@ -45,7 +42,6 @@ router.get("/:id", idValidation, (req: Request, res: Response) => {
         res.status(404).json({ success: false, message: "Author not found"});
         return;
     }
-
     res.status(200).json({ success: true, data: author });
 });
 
@@ -76,7 +72,7 @@ router.put("/:id", [idValidation, ...authorValidation], (req: Request, res: Resp
        return;
     }
 
-   author.authorName = req.body.authorName;
+    author.authorName = req.body.authorName;
     author.title = req.body.title;
 
     res.status(200).json({
